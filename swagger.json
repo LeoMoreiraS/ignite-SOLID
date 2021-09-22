@@ -1,0 +1,213 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Atlas",
+        "description": "Atlas SOLID challenge from Rocketseat Ignite",
+        "version": "1.0.1",
+        "contact": {
+            "email": "leomoreira.com@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create",
+                "description": "Create a new user",
+                "url": "localhost:3333/users",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "ExampleName",
+                                    "email": "example@example.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Email Already Exists"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List",
+                "description": "List all users to a admin user",
+                "url": "localhost:3333/users",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Turn Admin",
+                "description": "Turn an user into an administrator",
+                "url": "/users/:user_id/admin",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string",
+                                            "format":"uuid"
+                                        },
+                                        "admin": {
+                                            "type":"boolean"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "email": {
+                                            "type":"string"
+                                        },
+                                        "created_at": {
+                                            "type":"string"
+                                        },
+                                        "updated_at": {
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },"/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get an user",
+                "description": "Get an user profile",
+                "url": "/users/:user_id",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string",
+                                            "format":"uuid"
+                                        },
+                                        "admin": {
+                                            "type":"boolean"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "email": {
+                                            "type":"string"
+                                        },
+                                        "created_at": {
+                                            "type":"string"
+                                        },
+                                        "updated_at": {
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        }
+    }
+}
