@@ -44,7 +44,6 @@ describe("[PATCH] /users/:user_id/admin", () => {
     });
 
     const response = await request(app).patch(`/users/${user.id}/admin`);
-
     expect(response.body).toMatchObject({
       name: user.name,
       email: user.email,
